@@ -35,7 +35,26 @@ const bcrypt = require('bcrypt')
     }
 
 async function login(req, res){
-    res.send('login')
+    const {email, password} = req.body;
+    if( !email || !password) {
+        return res.status(400).json({msg:"please provide all required fields"})
+    }
+    try{
+
+    const [user] = await dbConnection.query("select username, userid, password from users where email = ?", [email])
+    if(user.length === 0) {
+        return res.status(400).json({msg:"invalid credentials"})
+    }
+    // compare password
+    const isMatch = await bcrypt.compare(password, user[0].password)
+    if(!isMatch) {
+        return res.status(400).json({msg:"invalid credentials"})
+    }
+      
+    } catch(error){
+        console.log(error.message)
+        return res.status(500).json({msg:"something went wrong, try again later!"})
+       }
 }
 
 async function checkUser(req, res){   
