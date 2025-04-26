@@ -6,11 +6,15 @@ const dbConnection = mysql2.createConnection({
    password:"bmhmmy",
 })
 
-dbConnection.execute("SELECT 'test' ",( err, result) => {
-    if(err) {
-        console.log(err.message)
-    }
-    else {
-        console.log(result)
-    }
- })
+// dbConnection.execute("SELECT 'test' ",( err, result) => {
+//     if(err) {
+//         console.log(err.message)
+//     }
+//     else {
+//         console.log(result)
+//     }
+//  })
+
+
+
+module.exports = dbConnection.promise()
