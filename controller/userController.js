@@ -2,8 +2,11 @@
 const dbConnection = require('../db/dbConfig') 
 
 
-//bycryption
 const bcrypt = require('bcrypt')
+
+const jwt = require('jsonwebtoken')
+
+
 
 
  async function register(req, res){
@@ -51,6 +54,13 @@ async function login(req, res){
         return res.status(400).json({msg:"invalid credentials"})
     }
       
+       const username = user[0].username;
+       const userid = user[0].userid;
+       const token =jwt.sign({username, userid}, "secret",{expiresIn:"1d"})
+
+    return res.status(200).json({msg:"login success", token, user:{username, userid}})
+
+
     } catch(error){
         console.log(error.message)
         return res.status(500).json({msg:"something went wrong, try again later!"})
