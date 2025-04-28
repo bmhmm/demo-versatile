@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const port = 5500;
+const port = 5400;
 
 // db connection
 const dbConnection = require('./db/dbConfig.js') 
@@ -10,11 +10,18 @@ const dbConnection = require('./db/dbConfig.js')
 //User route middleware file
 const userRoutes = require('./routes/userRoute')
 
+//Question route middleware file
+const questionRoutes = require('./routes/questionRoute')  
+
 //json middleware to extract json data
 app.use(express.json())
 
 // User route middleware
 app.use('/api/user', userRoutes);
+
+
+//questions route middleware
+app.use("/api/question", questionRoutes)
 
 
 
