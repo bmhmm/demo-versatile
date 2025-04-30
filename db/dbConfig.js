@@ -1,12 +1,12 @@
 const mysql2 = require('mysql2');
 const dbConnection = mysql2.createConnection({ 
-   user:"bmhmmy",
-   database:"demo_versatile",
+   user: process.env.USER,
+   database: process.env.DATABASE,
    host:"localhost",
-   password:"bmhmmy",
+   password: process.env.PASSWORD,
 })
 
-// dbConnection.execute("SELECT 'test' ",( err, result) => {
+// dbConnection.execute("SELECT 'test' ",(err, result) => {
 //     if(err) {
 //         console.log(err.message)
 //     }
